@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://biblioteca.robertsallent.com/xml/libros" 
+	xmlns="http://biblioteca.robertsallent.com/xml/libros" 
+	elementFormDefault="qualified">
+		
+	<!--  Definición del tipo simple para el ISBN -->
+	<xs:simpleType name="isbntype">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[\d\-]{5,17}" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!--  Definición del tipo simple para el numero de ediciones -->
+	<xs:simpleType name="edicionestype">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<!--  Definición del tipo simple para la edad recomendada -->
+	<xs:simpleType name="edadtype">
+		<xs:restriction base="xs:integer">
+			<xs:minInclusive value="0"/>
+      		<xs:maxInclusive value="120"/>
+		</xs:restriction>
+	</xs:simpleType>
+		
+	<!--  Definición del tipo complejo para el libro -->
+	<xs:complexType name="typelibro">
+		<xs:all>
+			<xs:element name="id" type="xs:integer" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="isbn" type="isbntype"/>
+			<xs:element name="titulo" type="xs:string"/>
+			<xs:element name="editorial" type="xs:string"/>
+			<xs:element name="idioma" type="xs:string"/>
+			<xs:element name="autor" type="xs:string"/>
+			<xs:element name="ediciones" type="edicionestype"/>
+			<xs:element name="edadrecomendada" type="edadtype" minOccurs="0" maxOccurs="1"/>
+		</xs:all>
+     </xs:complexType>
+     
+	<!--  Estructura del fichero de libros -->
+	<xs:element name="libros">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="libro" type="typelibro" maxOccurs="unbounded"/>			
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	
+</xs:schema>
